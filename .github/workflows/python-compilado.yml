@@ -36,7 +36,7 @@ jobs:
         body: |
           ## 🚀 Funciones
           - Mejorada la interfaz
-          - Insertar info como Usuario ruta del java y asignar RAM
+          - Insertar info como usuario ruta del java y asignar RAM
           - Instalar Vanilla, Forge y Fabric
           ------
           ## 📑Próximamente
