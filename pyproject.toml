@@ -16,11 +16,25 @@ minecraft-launcher-lib = "^6.4"
 pillow = "^10.3.0"
 
 [tool.poetry.group.dev.dependencies]
-black = { extras = ["d"], version = "^24.3.0" }
+black = { extras = ["d"], version = "^22.3.0" }
 isort = "^5.10.1"
 flake8 = "^5.0.4"
 pre-commit = "^2.18.1"
 pylint = "^2.13.7"
+
+[tool.black]
+target-version = ['py310']
+exclude-extend = '''
+/venv
+/.venv
+/__pycache__
+/.mypy_cache
+/.pytest_cache
+/dist
+/static
+/assets
+/docs
+'''
 
 [build-system]
 requires = ["poetry-core"]
