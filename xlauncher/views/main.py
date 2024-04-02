@@ -1,6 +1,8 @@
 import flet as ft
-from vews.home import home_page
-from vews.user import user_page
+
+from .home import home_page
+from .user import user_page
+
 
 def main(page: ft.Page):
     page.title = "XLauncher"
@@ -9,12 +11,12 @@ def main(page: ft.Page):
     page.window_resizable = False
     page.padding = 0
     page.fonts = {
-        "mine":"fonts/minecraft.ttf",
-        "mine_dun":"fonts/minecraft-dungeons.ttf"
+        "mine": "fonts/minecraft.ttf",
+        "mine_dun": "fonts/minecraft-dungeons.ttf",
     }
 
     logo = ft.Container(
-        content=ft.Image(src='img/logo.webp', height=45, width=45),
+        content=ft.Image(src="img/logo.webp", height=45, width=45),
         alignment=ft.alignment.center,
         height=47,
         margin=10,
@@ -23,71 +25,59 @@ def main(page: ft.Page):
     a = ft.IconButton(
         icon=ft.icons.PLAY_CIRCLE_FILL_OUTLINED,
         style=ft.ButtonStyle(
-            color='#5B0098',
-            bgcolor='#0C0C0C',
-            shape=ft.RoundedRectangleBorder(radius=5)
+            color="#5B0098",
+            bgcolor="#0C0C0C",
+            shape=ft.RoundedRectangleBorder(radius=5),
         ),
-        on_click=lambda _: page.go("/")
+        on_click=lambda _: page.go("/"),
     )
     b = ft.IconButton(
         icon=ft.icons.ACCOUNT_CIRCLE,
         style=ft.ButtonStyle(
-            color='#5B0098',
-            bgcolor='#0C0C0C',
-            shape=ft.RoundedRectangleBorder(radius=5)
+            color="#5B0098",
+            bgcolor="#0C0C0C",
+            shape=ft.RoundedRectangleBorder(radius=5),
         ),
-        on_click=lambda _: page.go("/user")
+        on_click=lambda _: page.go("/user"),
     )
     c = ft.IconButton(
         icon=ft.icons.NEWSPAPER_OUTLINED,
         style=ft.ButtonStyle(
-            color='#5B0098',
-            bgcolor='#0C0C0C',
-            shape=ft.RoundedRectangleBorder(radius=5)
-        )
+            color="#5B0098",
+            bgcolor="#0C0C0C",
+            shape=ft.RoundedRectangleBorder(radius=5),
+        ),
     )
     d = ft.IconButton(
         icon=ft.icons.DOWNLOAD,
         style=ft.ButtonStyle(
-            color='#5B0098',
-            bgcolor='#0C0C0C',
-            shape=ft.RoundedRectangleBorder(radius=5)
-        )
+            color="#5B0098",
+            bgcolor="#0C0C0C",
+            shape=ft.RoundedRectangleBorder(radius=5),
+        ),
     )
     e = ft.IconButton(
         icon=ft.icons.SETTINGS,
         style=ft.ButtonStyle(
-            color='#5B0098',
-            bgcolor='#0C0C0C',
-            shape=ft.RoundedRectangleBorder(radius=5)
-        )
+            color="#5B0098",
+            bgcolor="#0C0C0C",
+            shape=ft.RoundedRectangleBorder(radius=5),
+        ),
     )
-    iconos = ft.Column(
-        controls=[
-            a,
-            b,
-            c,
-            d,
-            e
-        ]
-    )
+    iconos = ft.Column(controls=[a, b, c, d, e])
 
-    #Navegacion principal de la app
+    # Navegacion principal de la app
     nab = ft.Container(
         content=ft.Column(
             spacing=100,
-            controls=[
-                logo,
-                iconos
-            ],
+            controls=[logo, iconos],
             alignment=ft.MainAxisAlignment.START,
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-
         ),
-        height= 478,
-        width= 70,
-        bgcolor='#131313',
-        alignment=ft.alignment.center
+        height=478,
+        width=70,
+        bgcolor="#131313",
+        alignment=ft.alignment.center,
     )
 
     def route_change(route):
@@ -97,11 +87,11 @@ def main(page: ft.Page):
                 "/",
                 [
                     ft.Row(
-                         spacing=0,
-                         controls=[
-                              nab,
-                              home_page,
-                         ],
+                        spacing=0,
+                        controls=[
+                            nab,
+                            home_page,
+                        ],
                     ),
                 ],
                 padding=0,
@@ -112,15 +102,15 @@ def main(page: ft.Page):
                 ft.View(
                     "/user",
                     [
-                    ft.Row(
-                         spacing=0,
-                         controls=[
-                              nab,
-                              user_page,
-                         ],
-                    ),
-                ],
-                padding=0,
+                        ft.Row(
+                            spacing=0,
+                            controls=[
+                                nab,
+                                user_page,
+                            ],
+                        ),
+                    ],
+                    padding=0,
                 )
             )
         if page.route == "/store":
@@ -152,4 +142,5 @@ def main(page: ft.Page):
     page.on_view_pop = view_pop
     page.go(page.route)
 
-ft.app(target=main, assets_dir='assets')
+
+ft.app(target=main, assets_dir="assets")

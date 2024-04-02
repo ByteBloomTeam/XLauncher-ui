@@ -1,37 +1,39 @@
-import os
 import json
+import os
 import subprocess
+
 import minecraft_launcher_lib
 
-user_windows = os.environ['USERNAME']
+user_windows = os.environ["USERNAME"]
 minecraft_directory = f"C://Users//{user_windows}//AppData//Roaming//.xlauncher"
 ruta_json = f"{minecraft_directory}//configuracion.json"
+
 
 async def prueba(e):
     print(e)
 
+
 async def play_mine():
     global options
-    with open(ruta_json, 'r') as file:
+    with open(ruta_json, "r") as file:
         data = json.load(file)
 
-    if 'Nombre' in data and 'RAM' in data:
-        mine_user = data['Nombre']
-        ram = data['RAM']
-        java_ruta = data.get('Java', None)
+    if "Nombre" in data and "RAM" in data:
+        mine_user = data["Nombre"]
+        ram = data["RAM"]
+        java_ruta = data.get("Java", None)
 
     forts = minecraft_launcher_lib.utils.get_installed_versions(minecraft_directory)
     for fort in forts:
-        print(fort['id'])
-    version = input('» ')
+        print(fort["id"])
+    version = input("» ")
 
     options = {
-        'username': mine_user,
-        'uuid': '',
-        'token': '',
-        'executablePath':f'{java_ruta}',
-        'defaultExecutablePath':f'{java_ruta}',
-
+        "username": mine_user,
+        "uuid": "",
+        "token": "",
+        "executablePath": f"{java_ruta}",
+        "defaultExecutablePath": f"{java_ruta}",
         "jvmArguments": [
             f"-Xmx{ram}G",
             f"-Xms{ram}G",
@@ -59,13 +61,14 @@ async def play_mine():
             "-XX:ReservedCodeCacheSize=2048m",
             "-XX:+UseCodeCacheFlushing",
             "-XX:SoftRefLRUPolicyMSPerMB=10000",
-            "-XX:ParallelGCThreads=10"
-            ],  # The jvmArguments
+            "-XX:ParallelGCThreads=10",
+        ],  # The jvmArguments
         "launcherVersion": "1.0.2",
     }
 
     # Ejecutar Minecraft
     minecraft_command = minecraft_launcher_lib.command.get_minecraft_command(
-        version, minecraft_directory, options)  # type: ignore
+        version, minecraft_directory, options
+    )  # type: ignore
     subprocess.run(minecraft_command)
     await play_mine()
