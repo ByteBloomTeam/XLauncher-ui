@@ -1,16 +1,16 @@
 <div align="center">
-    <img src="XLauncher LogoX.webp" alt="Launcher de Minecraft" height="250">
+    <img src="docs/XLauncher LogoX.webp" alt="Launcher de Minecraft" height="250">
 </div>
 
 # Minecraft Launcher
 
-![1711569832079](XLauncher-UI.png "Interfaz del XLauncher")
+![1711569832079](docs/XLauncher-UI.png "Interfaz del XLauncher")
 
 > Launcher de minecraft que hice para un video de YouTube
 
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/KeimaSenpai/XLauncher-ui/total?style=for-the-badge&label=Download&color=%23756AB6)
 
-### 🔩Instalacion
+## 🔩Instalacion
 
 - Clonar repositorio
 
@@ -54,4 +54,5 @@ pyinstaller main.py --noconfirm --onedir --console --icon icon_windows.ico --nam
 > [CREA TU PROPIO LAUNCHER de MINECRAFT](https://youtu.be/5FmjSubDRyw?si=9brYY9OnENftZgft)
 
 ## Personas que hicieron este proyecto posible
+
 [![Contribuidores](https://contrib.rocks/image?repo=KeimaSenpai/XLauncher-ui)](https://github.com/KeimaSenpai/XLauncher-ui/graphs/contributors)
