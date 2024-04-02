@@ -1,21 +1,5 @@
 import flet as ft
-from flet_route import Params,Basket
-
 from minecraft_launcher.minecraft import prueba
-
-
-class Home(ft.UserControl):
-    def __init__(self):
-        super().__init__()
-    
-    def view(self,page:ft.Page,params:Params,basket:Basket):
-        return ft.View(
-            controls=[
-                ft.Text('Hola',size=30)
-            ]
-        )
-
-
 
 minecraft_title = ft.Image(
             src='img/minecraft_title.png', 
@@ -32,7 +16,7 @@ play = ft.ElevatedButton(
         on_click=prueba
     )
 
-conte = ft.Stack(
+home_page = ft.Stack(
         [
             ft.Image(
                 src='img/Rectángulo.webp',
