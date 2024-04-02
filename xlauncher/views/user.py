@@ -1,6 +1,5 @@
 import flet as ft
 
-
 name = ft.TextField(hint_text="User Name")
 version = ft.Dropdown(
     width=100,

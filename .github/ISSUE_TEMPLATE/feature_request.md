@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 **¿Su solicitud de función está relacionada con un problema? Por favor describa.**
-Una descripción clara y concisa de cuál es el problema. 
+Una descripción clara y concisa de cuál es el problema.
 Ejem.
 Versión de Windows 22h2
 Puede mejorar en la rapidez de la app[...]

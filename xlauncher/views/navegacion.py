@@ -1,6 +1,5 @@
 import flet as ft
 
-
 logo = ft.Container(
     content=ft.Image(src="img/logo.webp", height=45, width=45),
     alignment=ft.alignment.center,

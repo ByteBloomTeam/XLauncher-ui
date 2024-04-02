@@ -1,4 +1,5 @@
 import flet as ft
+
 from .home import home_page
 from .user import user_page
 
