@@ -1,4 +1,4 @@
 flet
 minecraft-launcher-lib
+pillow
 pyinstaller
-flet_route
