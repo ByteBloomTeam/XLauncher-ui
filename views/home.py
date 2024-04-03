@@ -24,8 +24,8 @@ home_page = ft.Stack(
     [
         ft.Image(
             src="img/Rectángulo.webp",
-            # height=478,
-            # width=681,
+            height=478,
+            width=681,
             fit=ft.ImageFit.COVER,
         ),
         ft.Container(
