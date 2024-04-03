@@ -20,7 +20,7 @@ jobs:
         pip install -r requirements.txt
     - name: Build with pyinstaller
       run: |
-        flet pack main.py --name XLauncher --onedir --icon icon.ico --product-name XLauncher --add-data "asset;asset" --product-version "1.0.0" --copyright "Copyright (c) 2024 ByteBloom"
+        flet pack main.py --name XLauncher --onedir --icon icon_windows.ico --product-name XLauncher --add-data "asset;asset" --product-version "1.0.0" --copyright "Copyright (c) 2024 ByteBloom"
     - name: Compress folder
       shell: powershell
       run: |
