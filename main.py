@@ -2,11 +2,14 @@ import flet as ft
 
 from views.home import home_page
 from views.user import user_page
+from views.new import new_page
+from views.install import install_page
+from views.setting import setting_page
 
 
 def main(page: ft.Page):
     page.title = "XLauncher"
-    page.window_width = 761
+    page.window_width = 770
     page.window_height = 479
     page.window_resizable = False
     page.padding = 0
@@ -47,6 +50,7 @@ def main(page: ft.Page):
             bgcolor="#0C0C0C",
             shape=ft.RoundedRectangleBorder(radius=5),
         ),
+        on_click=lambda _: page.go("/new"),
     )
     d = ft.IconButton(
         icon=ft.icons.DOWNLOAD,
@@ -55,6 +59,7 @@ def main(page: ft.Page):
             bgcolor="#0C0C0C",
             shape=ft.RoundedRectangleBorder(radius=5),
         ),
+        on_click=lambda _: page.go("/install"),
     )
     e = ft.IconButton(
         icon=ft.icons.SETTINGS,
@@ -63,6 +68,7 @@ def main(page: ft.Page):
             bgcolor="#0C0C0C",
             shape=ft.RoundedRectangleBorder(radius=5),
         ),
+        on_click=lambda _: page.go("/setting"),
     )
     iconos = ft.Column(controls=[a, b, c, d, e])
 
@@ -92,6 +98,7 @@ def main(page: ft.Page):
                             nab,
                             home_page,
                         ],
+                        alignment=ft.MainAxisAlignment.CENTER,
                     ),
                 ],
                 padding=0,
@@ -113,21 +120,48 @@ def main(page: ft.Page):
                     padding=0,
                 )
             )
-        if page.route == "/store":
+        if page.route == "/new":
             page.views.append(
                 ft.View(
-                    "/store",
+                    "/new",
                     [
-                        ft.ElevatedButton("Go Home", on_click=lambda _: page.go("/")),
+                        ft.Row(
+                            spacing=0,
+                            controls=[
+                                nab,
+                                new_page,
+                            ],
+                        ),
                     ],
                 )
             )
-        if page.route == "/store":
+        if page.route == "/install":
             page.views.append(
                 ft.View(
-                    "/store",
+                    "/install",
                     [
-                        ft.ElevatedButton("Go Home", on_click=lambda _: page.go("/")),
+                        ft.Row(
+                            spacing=0,
+                            controls=[
+                                nab,
+                                install_page,
+                            ],
+                        ),
+                    ],
+                )
+            )
+        if page.route == "/setting":
+            page.views.append(
+                ft.View(
+                    "/setting",
+                    [
+                        ft.Row(
+                            spacing=0,
+                            controls=[
+                                nab,
+                                setting_page,
+                            ],
+                        ),
                     ],
                 )
             )
