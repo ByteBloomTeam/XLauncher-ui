@@ -55,4 +55,4 @@ flet pack main.py --name XLauncher --onedir --icon icon.ico --product-name XLaun
 
 ## Personas que hicieron este proyecto posible
 
-[![Contribuidores](https://contrib.rocks/image?repo=KeimaSenpai/XLauncher-ui)](https://github.com/KeimaSenpai/XLauncher-ui/graphs/contributors)
+[![Contribuidores](https://contrib.rocks/image?repo=ByteBloomTeam/XLauncher-ui/)](https://github.com/ByteBloomTeam/XLauncher-ui/graphs/contributors)
