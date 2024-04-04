@@ -54,5 +54,5 @@ flet pack main.py --name XLauncher --onedir --icon icon.ico --product-name XLaun
 > [CREA TU PROPIO LAUNCHER de MINECRAFT](https://youtu.be/5FmjSubDRyw?si=9brYY9OnENftZgft)
 
 ## Personas que hicieron este proyecto posible
-<--- Inicio --->
-<--- Fin --->
+<!-- Inicio -->
+<!-- Fin -->
