@@ -43,7 +43,7 @@ python -m pip install -r requirements.txt --index-url http://nexus.prod.uci.cu/r
 ### 📦Para empaquetar
 
 ```console
-flet pack main.py --name XLauncher --onedir --icon icon.ico --product-name XLauncher --add-data "asset;asset" --product-version "1.0.0" --copyright "Copyright (c) 2024 ByteBloom"
+flet pack  main.py --name XLauncher --onedir --icon icon_windows.ico --product-name XLauncher --add-data "assets;assets" --product-version "1.0.0" --copyright "Copyright (c) 2024 ByteBloom"
 ```
 
 > Link de la documentacion [LINK](https://minecraft-launcher-lib.readthedocs.io/en/stable/)

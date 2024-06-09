@@ -1,45 +1,88 @@
 import json
 import os
 import subprocess
-
-import minecraft_launcher_lib
+import minecraft_launcher_lib as mll
 
 user_windows = os.environ["USERNAME"]
 minecraft_directory = f"C://Users//{user_windows}//AppData//Roaming//.xlauncher"
-ruta_json = f"{minecraft_directory}//configuracion.json"
+ruta_json = f"{minecraft_directory}//configuration.json"
+
+def latest_versions():
+    versiones = []
+    version = mll.utils.get_installed_versions(minecraft_directory)
+    for ver in version:
+        if ver["type"] == "release":
+            versiones.append(ver["id"])
+    return versiones
+
+def list_versions():
+    versioneslis = []
+    versionlis = mll.utils.get_version_list()
+    for ver in versionlis:
+        if ver["type"] == "release":
+            versioneslis.append(ver["id"])
+    return versioneslis
 
 
-async def prueba(e):
-    print(e)
-    await play_mine()
+def save_config(mine_user=None, uuid=None, version=None, ram=None):
+    if not os.path.exists(ruta_json):
+        data = {
+            "username": mine_user,
+            "uuid": uuid,
+            "token": "",
+            "RAM": ram,
+            "version": version,
+        }
+        with open(ruta_json, "w") as f:
+            json.dump(data, f, indent=4)
+    else:
+        with open(ruta_json, "r") as f:
+            data = json.load(f)
+        if mine_user != None:
+            data["username"] = mine_user
+        if uuid != None:
+            data["uuid"] = uuid
+        if version != None:
+            data["version"] = version
+        if ram != None:
+            data["RAM"] = ram
+        with open(ruta_json, "w") as f:
+            json.dump(data, f, indent=4)
 
-
-async def play_mine():
+async def play_mine(e):
     global options
-    with open(ruta_json, "r") as file:
-        data = json.load(file)
+    if os.path.exists(ruta_json):
+        with open(ruta_json, "r") as file:
+            data = json.load(file)
 
-    if "Nombre" in data and "RAM" in data:
-        mine_user = data["Nombre"]
-        version = data["Version"]
-        ram = data["RAM"]
-        java_ruta = data.get("Java", None)
+        if "username" in data and "RAM" in data:
+            mine_user = data["username"]
+            version = data["version"]
+            ram = data["RAM"]
+            uuid = data["uuid"]
+        if uuid == "" or uuid == None:
+            info = mll.utils.generate_test_options()
+            save_config(uuid=info["uuid"])
 
-    options = {
-        "username": mine_user,
-        "uuid": "",
-        "token": "",
-        "executablePath": f"{java_ruta}",
-        "jvmArguments": [
-            f"-Xmx{ram}G",
-            f"-Xms{ram}G",
+        try:
+            options = {
+                "username": mine_user,
+                "uuid": uuid,
+                "token": "",
+                "jvmArguments": [
+                    f"-Xmx{ram}G",
+                    f"-Xms{ram}G",
+                ],  # The jvmArguments
+                "launcherVersion": "1.0.0",
+            }
 
-        ],  # The jvmArguments
-        "launcherVersion": "1.0.0",
-    }
-
-    # Ejecutar Minecraft
-    minecraft_command = minecraft_launcher_lib.command.get_minecraft_command(
-        version, minecraft_directory, options
-    )  # type: ignore
-    subprocess.run(minecraft_command)
+            # Ejecutar Minecraft
+            minecraft_command = mll.command.get_minecraft_command(
+                version, minecraft_directory, options
+            )
+            subprocess.run(minecraft_command)
+        except:
+            await play_mine(e)
+    else:
+        # install_mine()
+        pass
