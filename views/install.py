@@ -2,14 +2,33 @@ import os
 import flet as ft
 import minecraft_launcher_lib as mll
 from minecraft_launcher.minecraft import list_versions, save_config
+import urllib.request
 
 user_windows = os.environ["USERNAME"]
 minecraft_directory = f"C://Users//{user_windows}//AppData//Roaming//.xlauncher"
 
-versions = list_versions()
+def check_internet():
+    try:
+        urllib.request.urlopen('http://google.com', timeout=1)
+        return True
+    except urllib.request.URLError as err: 
+        return False
+
+if check_internet():
+    versions = list_versions()
+else:
+    versions = ["No Internet"]
+
 opciones = [ft.dropdown.Option(version) for version in versions]
 title = ft.Text('Instalación', font_family='mine_dun', size=30)
-pb = ft.ProgressBar(width=600, value=0, color='#447A12', bgcolor='#1F1F23', border_radius=0)
+pb = ft.ProgressBar(
+    width=600, 
+    height=10, 
+    value=0, 
+    color='#5B0098', 
+    bgcolor='#1F1F23', 
+    border_radius=0
+)
 dd = ft.Dropdown(
     width=200,
     height=50,
@@ -37,8 +56,10 @@ def infoprog(text):
     downloadprogress.update()
 
 def install(e):
-    infotext(install_mine(dd.value))
-
+    if dd.value == "No Internet Connection":
+        infotext("No hay conexión a Internet. No se puede instalar.")
+    else:
+        infotext(install_mine(dd.value))
 
 def printProgressBar(
     iteration,
@@ -75,7 +96,6 @@ def install_mine(version):
     info = mll.utils.generate_test_options()
     save_config(uuid=info["uuid"], version=version)
 
-
 button_install = ft.ElevatedButton(
     "INSTALAR",
     style=ft.ButtonStyle(
@@ -84,9 +104,8 @@ button_install = ft.ElevatedButton(
         overlay_color="#447A12",
         shape=ft.RoundedRectangleBorder(radius=0),
     ),
-    on_click=lambda _: install_mine(dd.value),
+    on_click=lambda _: install(dd.value),
 )
-
 
 install_page = ft.Stack(
     [
