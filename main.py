@@ -17,6 +17,7 @@ def main(page: ft.Page):
         "mine": "fonts/minecraft.ttf",
         "mine_dun": "fonts/minecraft-dungeons.ttf",
     }
+    page.theme = ft.Theme(font_family="mine_dun")
 
     logo = ft.Container(
         content=ft.Image(src="img/logo.webp", height=45, width=45),
@@ -72,7 +73,7 @@ def main(page: ft.Page):
     )
     iconos = ft.Column(controls=[a, b, c, d, e])
 
-    # Navegacion principal de la app
+    # Navegación principal de la app
     nab = ft.Container(
         content=ft.Column(
             spacing=100,
@@ -133,6 +134,7 @@ def main(page: ft.Page):
                             ],
                         ),
                     ],
+                    padding=0,
                 )
             )
         if page.route == "/install":
@@ -148,6 +150,7 @@ def main(page: ft.Page):
                             ],
                         ),
                     ],
+                    padding=0,
                 )
             )
         if page.route == "/setting":
@@ -163,6 +166,7 @@ def main(page: ft.Page):
                             ],
                         ),
                     ],
+                    padding=0,
                 )
             )
         page.update()

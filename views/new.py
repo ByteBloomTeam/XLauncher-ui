@@ -1,7 +1,5 @@
 import flet as ft
 
-from minecraft_launcher.minecraft import prueba
-
 
 title = ft.Text('Noticias', font_family='mine_dun', size=30)
 

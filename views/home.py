@@ -1,6 +1,6 @@
 import flet as ft
 
-from minecraft_launcher.minecraft import prueba
+from minecraft_launcher.minecraft import play_mine
 
 
 
@@ -12,12 +12,14 @@ minecraft_title = ft.Image(
 play = ft.ElevatedButton(
     "PLAY",
     style=ft.ButtonStyle(
-        color="#191919",
+        color="#ffffff",
         bgcolor="#68C90E",
         overlay_color="#447A12",
-        shape=ft.RoundedRectangleBorder(radius=5),
+        shape=ft.RoundedRectangleBorder(radius=0),
+        shadow_color="#178c4a",
+        elevation=5,
     ),
-    on_click=prueba,
+    on_click=play_mine,
 )
 
 home_page = ft.Stack(

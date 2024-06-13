@@ -43,7 +43,7 @@ python -m pip install -r requirements.txt --index-url http://nexus.prod.uci.cu/r
 ### 📦Para empaquetar
 
 ```console
-flet pack main.py --name XLauncher --onedir --icon icon.ico --product-name XLauncher --add-data "asset;asset" --product-version "1.0.0" --copyright "Copyright (c) 2024 ByteBloom"
+flet pack  main.py --name XLauncher --onedir --icon icon_windows.ico --product-name XLauncher --add-data "assets;assets" --product-version "1.0.0" --copyright "Copyright (c) 2024 ByteBloom"
 ```
 
 > Link de la documentacion [LINK](https://minecraft-launcher-lib.readthedocs.io/en/stable/)
@@ -54,5 +54,4 @@ flet pack main.py --name XLauncher --onedir --icon icon.ico --product-name XLaun
 > [CREA TU PROPIO LAUNCHER de MINECRAFT](https://youtu.be/5FmjSubDRyw?si=9brYY9OnENftZgft)
 
 ## Personas que hicieron este proyecto posible
-
-[![Contribuidores](https://contrib.rocks/image?repo=KeimaSenpai/XLauncher-ui)](https://github.com/KeimaSenpai/XLauncher-ui/graphs/contributors)
+[![Contributors](https://contrib.rocks/image?repo=ByteBloomTeam/XLauncher-ui)](https://github.com/ByteBloomTeam/XLauncher-ui/graphs/contributors)
