@@ -154,3 +154,8 @@ cython_debug/
 
 # Visual Studio Code
 .vscode/
+
+# Pruebas
+eje.py
+.logs/
+.config/
