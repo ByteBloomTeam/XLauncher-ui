@@ -17,7 +17,7 @@ if os.path.exists(ruta_json):
         config_data = json.load(file)
 else:
     config_data = {
-        "mine_user": "",
+        "username": "",
         "ram": "",
         "version": ""
     }
@@ -40,7 +40,7 @@ username = ft.TextField(
         font_family='mine',
         size=15,
     ),
-    value=config_data.get("mine_user", "")
+    value=config_data.get("username", "")
 )
 
 ram = ft.TextField(
@@ -72,15 +72,6 @@ version = ft.Dropdown(
     value=config_data.get("version", "")
 )
 
-def save_configuration(e):
-    config = {
-        "mine_user": username.value,
-        "ram": ram.value,
-        "version": version.value
-    }
-    with open(ruta_json, 'w') as file:
-        json.dump(config, file)
-
 guardar_btn = ft.ElevatedButton(
     "Guardar",
     style=ft.ButtonStyle(
@@ -91,7 +82,7 @@ guardar_btn = ft.ElevatedButton(
         shadow_color="#178c4a",
         elevation=5,
     ),
-    on_click=save_configuration,
+    on_click=lambda _: save_config(mine_user=username.value, ram=ram.value, version=version.value),
 )
 
 user_page = ft.Stack(

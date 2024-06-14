@@ -30,7 +30,7 @@ def save_config(mine_user=None, uuid=None, version=None, ram=None):
             "username": mine_user,
             "uuid": uuid,
             "token": "",
-            "RAM": ram,
+            "ram": ram,
             "version": version,
         }
         with open(ruta_json, "w") as f:
@@ -45,7 +45,7 @@ def save_config(mine_user=None, uuid=None, version=None, ram=None):
         if version != None:
             data["version"] = version
         if ram != None:
-            data["RAM"] = ram
+            data["ram"] = ram
         with open(ruta_json, "w") as f:
             json.dump(data, f, indent=4)
 
@@ -55,34 +55,32 @@ async def play_mine(e):
         with open(ruta_json, "r") as file:
             data = json.load(file)
 
-        if "username" in data and "RAM" in data:
+        if "username" in data and "ram" in data:
             mine_user = data["username"]
             version = data["version"]
-            ram = data["RAM"]
-            uuid = data["uuid"]
-        if uuid == "" or uuid == None:
-            info = mll.utils.generate_test_options()
-            save_config(uuid=info["uuid"])
+            ram = data["ram"]
+            # uuid = data["uuid"]
+        # if uuid == "" or uuid == None:
+        #     info = mll.utils.generate_test_options()
+        #     save_config(uuid=info["uuid"])
 
-        try:
-            options = {
-                "username": mine_user,
-                "uuid": uuid,
-                "token": "",
-                "jvmArguments": [
-                    f"-Xmx{ram}G",
-                    f"-Xms{ram}G",
-                ],  # The jvmArguments
-                "launcherVersion": "1.0.0",
-            }
+        
+        options = {
+            "username": mine_user,
+            "uuid": '',
+            "token": "",
+            "jvmArguments": [
+                f"-Xmx{ram}G",
+                f"-Xms{ram}G",
+            ],  # The jvmArguments
+            "launcherVersion": "1.0.0",
+        }
 
-            # Ejecutar Minecraft
-            minecraft_command = mll.command.get_minecraft_command(
-                version, minecraft_directory, options
-            )
-            subprocess.run(minecraft_command)
-        except:
-            await play_mine(e)
+        # Ejecutar Minecraft
+        minecraft_command = mll.command.get_minecraft_command(
+            version, minecraft_directory, options
+        )
+        subprocess.run(minecraft_command)
     else:
         # install_mine()
         pass
