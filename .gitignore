@@ -157,3 +157,5 @@ cython_debug/
 
 # Pruebas
 eje.py
+.logs/
+.config/
