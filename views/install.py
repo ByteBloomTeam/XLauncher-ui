@@ -76,7 +76,6 @@ def printProgressBar(
     bar = fill * filledLength + "○" * (length - filledLength)
     pb.value = iteration / total
     pb.update()
-    os.system("cls")
     infoprog(f"{prefix} {percent}% {suffix}")
 
 def maximum(max_value, value):
