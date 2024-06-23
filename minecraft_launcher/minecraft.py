@@ -80,7 +80,7 @@ async def play_mine(e):
         minecraft_command = mll.command.get_minecraft_command(
             version, minecraft_directory, options
         )
-        subprocess.run(minecraft_command)
+        subprocess.run(minecraft_command, creationflags=subprocess.CREATE_NO_WINDOW)
     else:
         # install_mine()
         pass
