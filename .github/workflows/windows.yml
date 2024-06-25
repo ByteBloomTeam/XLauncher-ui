@@ -28,8 +28,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
       with:
-        tag_name: v1.0.1
-        release_name: XLauncher v1.0.1
+        tag_name: v1.0.2
+        release_name: XLauncher v1.0.2
         body: |
           ## 🚀 Funciones
           - Todavía en BETA
@@ -40,6 +40,7 @@ jobs:
           ------
           ## 🐛Se corrigieron los siguientes bugs
           - El bug de la consola cuando se instala una versión
+          - Ya al abrir minecraft no sale la consolas
           
           ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/KeimaSenpai/XLauncher-ui/total?style=for-the-badge&label=Download&color=%23756AB6)
         draft: false
