@@ -1,11 +1,13 @@
 import json
 import os
 import subprocess
+import threading
 import minecraft_launcher_lib as mll
 
 user_windows = os.environ["USERNAME"]
 minecraft_directory = f"C://Users//{user_windows}//AppData//Roaming//.xlauncher"
 ruta_json = f"{minecraft_directory}//configuration.json"
+ruta_java = f"{minecraft_directory}//runtime//jre-legacy//windows-x64//jre-legacy//bin//java.exe"
 
 def latest_versions():
     versiones = []
@@ -24,7 +26,7 @@ def list_versions():
     return versioneslis
 
 
-def save_config(mine_user=None, uuid=None, version=None, ram=None):
+def save_config(mine_user=None, uuid=None, version=None, ram=None, java=None):
     if not os.path.exists(ruta_json):
         data = {
             "username": mine_user,
@@ -32,6 +34,7 @@ def save_config(mine_user=None, uuid=None, version=None, ram=None):
             "token": "",
             "ram": ram,
             "version": version,
+            "java": java,
         }
         with open(ruta_json, "w") as f:
             json.dump(data, f, indent=4)
@@ -46,8 +49,15 @@ def save_config(mine_user=None, uuid=None, version=None, ram=None):
             data["version"] = version
         if ram != None:
             data["ram"] = ram
+        if java != None:
+            data["java"] = java
         with open(ruta_json, "w") as f:
             json.dump(data, f, indent=4)
+
+def launch_minecraft(e):
+    # Crear y comenzar un hilo separado para ejecutar play_mine
+    threading.Thread(target=play_mine).start()
+
 
 async def play_mine(e):
     global options
@@ -59,6 +69,8 @@ async def play_mine(e):
             mine_user = data["username"]
             version = data["version"]
             ram = data["ram"]
+            java= data["java"]
+            
             # uuid = data["uuid"]
         # if uuid == "" or uuid == None:
         #     info = mll.utils.generate_test_options()
@@ -69,6 +81,8 @@ async def play_mine(e):
             "username": mine_user,
             "uuid": '',
             "token": "",
+            "executablePath": java, 
+            "defaultExecutablePath": ruta_java,
             "jvmArguments": [
                 f"-Xmx{ram}G",
                 f"-Xms{ram}G",
@@ -82,5 +96,5 @@ async def play_mine(e):
         )
         subprocess.run(minecraft_command)
     else:
-        # install_mine()
+        print('error')
         pass
