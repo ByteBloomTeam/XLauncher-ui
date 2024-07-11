@@ -59,7 +59,7 @@ def launch_minecraft(e):
     threading.Thread(target=play_mine).start()
 
 
-async def play_mine(e):
+def play_mine():
     global options
     if os.path.exists(ruta_json):
         with open(ruta_json, "r") as file:
