@@ -1,6 +1,6 @@
 import flet as ft
 
-from minecraft_launcher.minecraft import launch_minecraft
+from minecraft_launcher.minecraft import play_mine
 
 
 
@@ -19,7 +19,7 @@ play = ft.ElevatedButton(
         shadow_color="#178c4a",
         elevation=5,
     ),
-    on_click=launch_minecraft,
+    on_click=play_mine,
 )
 
 home_page = ft.Stack(

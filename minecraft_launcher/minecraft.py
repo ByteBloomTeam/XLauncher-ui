@@ -54,12 +54,12 @@ def save_config(mine_user=None, uuid=None, version=None, ram=None, java=None):
         with open(ruta_json, "w") as f:
             json.dump(data, f, indent=4)
 
-def launch_minecraft(e):
-    # Crear y comenzar un hilo separado para ejecutar play_mine
-    threading.Thread(target=play_mine).start()
+# def launch_minecraft(e):
+#     # Crear y comenzar un hilo separado para ejecutar play_mine
+#     threading.Thread(target=play_mine).start()
 
 
-def play_mine():
+async def play_mine(e):
     global options
     if os.path.exists(ruta_json):
         with open(ruta_json, "r") as file:
@@ -94,7 +94,10 @@ def play_mine():
         minecraft_command = mll.command.get_minecraft_command(
             version, minecraft_directory, options
         )
-        subprocess.run(minecraft_command, creationflags=subprocess.CREATE_NO_WINDOW)
+        subprocess.run(minecraft_command, 
+                       creationflags=subprocess.CREATE_NO_WINDOW
+
+                    )
     else:
         print('error')
         pass
