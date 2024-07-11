@@ -1,4 +1,4 @@
-name: Build and Release
+name: xlauncher 1.0.3
 
 on:
   workflow_dispatch:
@@ -28,8 +28,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
       with:
-        tag_name: v1.0.2
-        release_name: XLauncher v1.0.2
+        tag_name: v1.0.3
+        release_name: XLauncher v1.0.3
         body: |
           ## 🚀 Funciones
           - Todavía en BETA
@@ -41,6 +41,7 @@ jobs:
           ## 🐛Se corrigieron los siguientes bugs
           - El bug de la consola cuando se instala una versión
           - Ya al abrir minecraft no sale la consolas
+          - Se agregó la opción para elegir el java
           
           ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/KeimaSenpai/XLauncher-ui/total?style=for-the-badge&label=Download&color=%23756AB6)
         draft: false
