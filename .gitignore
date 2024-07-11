@@ -156,6 +156,8 @@ cython_debug/
 # .vscode/
 
 # Pruebas
+*.log.gz
 eje.py
 .logs/
 .config/
+logs/
