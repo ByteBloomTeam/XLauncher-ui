@@ -62,7 +62,7 @@ de personalización.
 
     dlg = ft.AlertDialog(
         title=ft.Text(
-            "XLauncher v1.0.4", 
+            "XLauncher v1.0.3", 
             font_family='mine',
             size=15,
             ),
