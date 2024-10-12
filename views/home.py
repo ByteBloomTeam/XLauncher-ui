@@ -13,13 +13,19 @@ play = ft.ElevatedButton(
     "PLAY",
     style=ft.ButtonStyle(
         color="#ffffff",
-        bgcolor="#68C90E",
-        overlay_color="#447A12",
-        shape=ft.RoundedRectangleBorder(radius=0),
-        shadow_color="#178c4a",
+        bgcolor="#5B0098",
+        overlay_color="#0C0C0C",
+        shape=ft.RoundedRectangleBorder(radius=3),
+        shadow_color="#000000",
         elevation=5,
     ),
     on_click=play_mine,
+)
+
+image_promo = ft.Image(
+    src='http://127.0.0.1:8090/api/files/lmvwpuuvgk9dan6/79cfxvrsf8j8j6f/promo_RmJczM1Y2F.webp?token=',
+    height=50,
+
 )
 
 home_page = ft.Stack(
@@ -32,7 +38,7 @@ home_page = ft.Stack(
         ),
         ft.Container(
             content=ft.Column(
-                controls=[minecraft_title, play],
+                controls=[minecraft_title, play, image_promo],
                 alignment=ft.MainAxisAlignment.CENTER,
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             ),

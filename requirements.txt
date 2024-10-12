@@ -1,4 +1,4 @@
-flet==0.22.1
+flet==0.24.1
 minecraft-launcher-lib
 pillow
 pyinstaller

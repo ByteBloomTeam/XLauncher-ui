@@ -9,7 +9,7 @@ minecraft_directory = f"C://Users//{user_windows}//AppData//Roaming//.xlauncher"
 
 def check_internet():
     try:
-        urllib.request.urlopen('https://google.com', timeout=2)
+        urllib.request.urlopen('https://google.com', timeout=5)
         return True
     except urllib.request.URLError as err: 
         return False
