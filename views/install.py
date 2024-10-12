@@ -9,7 +9,7 @@ minecraft_directory = f"C://Users//{user_windows}//AppData//Roaming//.xlauncher"
 
 def check_internet():
     try:
-        urllib.request.urlopen('http://google.com', timeout=1)
+        urllib.request.urlopen('https://google.com', timeout=5)
         return True
     except urllib.request.URLError as err: 
         return False
@@ -76,7 +76,6 @@ def printProgressBar(
     bar = fill * filledLength + "○" * (length - filledLength)
     pb.value = iteration / total
     pb.update()
-    os.system("cls")
     infoprog(f"{prefix} {percent}% {suffix}")
 
 def maximum(max_value, value):

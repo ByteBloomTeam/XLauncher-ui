@@ -4,15 +4,16 @@ from views.home import home_page
 from views.user import user_page
 from views.new import new_page
 from views.install import install_page
-from views.setting import setting_page
+from views.setting import create_setting_page
 
 
 def main(page: ft.Page):
     page.title = "XLauncher"
-    page.window_width = 770
-    page.window_height = 479
-    page.window_resizable = False
+    page.window.width = 769
+    page.window.height = 500
+    page.window.resizable = False
     page.padding = 0
+    page.theme_mode = "dark"
     page.fonts = {
         "mine": "fonts/minecraft.ttf",
         "mine_dun": "fonts/minecraft-dungeons.ttf",
@@ -71,7 +72,10 @@ def main(page: ft.Page):
         ),
         on_click=lambda _: page.go("/setting"),
     )
-    iconos = ft.Column(controls=[a, b, c, d, e])
+
+
+
+    iconos = ft.Column(controls=[a, b, c, d, e,])
 
     # Navegación principal de la app
     nab = ft.Container(
@@ -86,6 +90,8 @@ def main(page: ft.Page):
         bgcolor="#131313",
         alignment=ft.alignment.center,
     )
+
+
 
     def route_change(route):
         page.views.clear()
@@ -116,6 +122,7 @@ def main(page: ft.Page):
                                 nab,
                                 user_page,
                             ],
+                            alignment=ft.MainAxisAlignment.CENTER,
                         ),
                     ],
                     padding=0,
@@ -132,6 +139,7 @@ def main(page: ft.Page):
                                 nab,
                                 new_page,
                             ],
+                            alignment=ft.MainAxisAlignment.CENTER,
                         ),
                     ],
                     padding=0,
@@ -148,6 +156,7 @@ def main(page: ft.Page):
                                 nab,
                                 install_page,
                             ],
+                            alignment=ft.MainAxisAlignment.CENTER,
                         ),
                     ],
                     padding=0,
@@ -162,8 +171,9 @@ def main(page: ft.Page):
                             spacing=0,
                             controls=[
                                 nab,
-                                setting_page,
+                                create_setting_page(page),
                             ],
+                            alignment=ft.MainAxisAlignment.CENTER,
                         ),
                     ],
                     padding=0,
