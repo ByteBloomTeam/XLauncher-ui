@@ -99,9 +99,11 @@ button_install = ft.ElevatedButton(
     "INSTALAR",
     style=ft.ButtonStyle(
         color="#ffffff",
-        bgcolor='#68C90E',
-        overlay_color="#447A12",
-        shape=ft.RoundedRectangleBorder(radius=0),
+        bgcolor="#5B0098",
+        overlay_color="#0C0C0C",
+        shape=ft.RoundedRectangleBorder(radius=3),
+        shadow_color="#000000",
+        elevation=5,
     ),
     on_click=lambda _: install(dd.value),
 )

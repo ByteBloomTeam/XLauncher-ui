@@ -37,7 +37,7 @@ select_java_button = ft.ElevatedButton(
         shadow_color="#000000",
         elevation=5,
     ),
-    on_click=lambda _: file_picker.pick_files(dialog_title='Selecciona el Java', allowed_extensions=['exe'])
+    on_click=lambda _: file_picker.pick_files(dialog_title='Selecciona el Java', allowed_extensions=['exe'], initial_directory=minecraft_directory)
 )
 
 
