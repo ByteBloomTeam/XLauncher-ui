@@ -10,7 +10,7 @@
 
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/KeimaSenpai/XLauncher-ui/total?style=for-the-badge&label=Download&color=%23756AB6)
 
-## 🔩Instalacion
+## 🔩Instalación
 
 - Clonar repositorio
 
@@ -46,7 +46,7 @@ python -m pip install -r requirements.txt --index-url http://nexus.prod.uci.cu/r
 flet pack  main.py --name XLauncher --onedir --icon icon_windows.ico --product-name XLauncher --add-data "assets;assets" --product-version "1.0.0" --copyright "Copyright (c) 2024 ByteBloom"
 ```
 
-> Link de la documentacion [LINK](https://minecraft-launcher-lib.readthedocs.io/en/stable/)
+> Link de la documentación [LINK](https://minecraft-launcher-lib.readthedocs.io/en/stable/)
 
 ## 📺Video de YouTube
 
