@@ -1,4 +1,5 @@
 import flet as ft
+import logging
 
 from views.home import home_page
 from views.user import user_page
@@ -6,12 +7,15 @@ from views.new import new_page
 from views.install import install_page
 from views.setting import create_setting_page
 
+logging.basicConfig(level=logging.DEBUG)
+# logging.getLogger("flet_core").setLevel(logging.INFO)
 
 def main(page: ft.Page):
     page.title = "XLauncher"
     page.window.width = 769
     page.window.height = 500
     page.window.resizable = False
+    page.window.maximizable = False
     page.padding = 0
     page.theme_mode = "dark"
     page.fonts = {

@@ -21,7 +21,7 @@ def list_versions():
     versioneslis = []
     versionlis = mll.utils.get_version_list()
     for ver in versionlis:
-        if ver["type"] == "release":
+        if ver["type"] == "release" or ver["type"] == "snapshot":
             versioneslis.append(ver["id"])
     return versioneslis
 

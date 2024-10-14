@@ -62,7 +62,7 @@ de personalización.
 
     dlg = ft.AlertDialog(
         title=ft.Text(
-            "XLauncher v1.0.3", 
+            "XLauncher v1.0.4", 
             font_family='mine',
             size=15,
             ),
@@ -106,10 +106,34 @@ de personalización.
                     ),
                     ],
                     alignment=ft.MainAxisAlignment.CENTER,
+                ),
+                ft.Text(
+                    disabled=False,
+                    spans=[
+                        ft.TextSpan('Copyright © 2024.  ',
+                                    ft.TextStyle(
+                                        font_family='mine',
+                                    )
+                                ),
+                        ft.TextSpan('KeimaSenpai.  ', 
+                                    ft.TextStyle(
+                                        font_family='mine',
+                                    ),
+                                    url="https://github.com/KeimaSenpai",
+                                ),
+                        ft.TextSpan('LICENSE', 
+                                    ft.TextStyle(
+                                        font_family='mine',
+                                    ),
+                                    url="https://github.com/KeimaSenpai/XLauncher-ui/blob/main/LICENSE",
+                                ),
+                    ]
                 )
 
             ],
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+            alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+
         ),
         shape= ft.RoundedRectangleBorder(radius=5),
     )   
