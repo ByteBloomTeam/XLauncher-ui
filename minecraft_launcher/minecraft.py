@@ -27,32 +27,37 @@ def list_versions():
 
 
 def save_config(mine_user=None, uuid=None, version=None, ram=None, java=None):
+    # Verificar si el archivo existe
     if not os.path.exists(ruta_json):
+        # Si no existe, crear el diccionario con los valores proporcionados
         data = {
-            "username": mine_user,
-            "uuid": uuid,
+            "username": mine_user if mine_user is not None else "",
+            "uuid": uuid if uuid is not None else "",
             "token": "",
-            "ram": ram,
-            "version": version,
-            "java": java,
+            "ram": ram if ram is not None else "",
+            "version": version if version is not None else "",
+            "java": java if java is not None else "",
         }
-        with open(ruta_json, "w") as f:
-            json.dump(data, f, indent=4)
     else:
+        # Si el archivo existe, cargar los datos existentes
         with open(ruta_json, "r") as f:
             data = json.load(f)
-        if mine_user != None:
-            data["username"] = mine_user
-        if uuid != None:
-            data["uuid"] = uuid
-        if version != None:
-            data["version"] = version
-        if ram != None:
-            data["ram"] = ram
-        if java != None:
-            data["java"] = java
-        with open(ruta_json, "w") as f:
-            json.dump(data, f, indent=4)
+
+    # Actualizar los valores solo si se pasan en la función
+    if mine_user is not None:
+        data["username"] = mine_user
+    if uuid is not None:
+        data["uuid"] = uuid
+    if version is not None:
+        data["version"] = version
+    if ram is not None:
+        data["ram"] = ram
+    if java is not None:
+        data["java"] = java
+
+    # Guardar los datos actualizados en el archivo
+    with open(ruta_json, "w") as f:
+        json.dump(data, f, indent=4)
 
 # def launch_minecraft(e):
 #     # Crear y comenzar un hilo separado para ejecutar play_mine

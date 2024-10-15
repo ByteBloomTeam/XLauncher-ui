@@ -1,6 +1,5 @@
 import os
 import flet as ft
-import minecraft_launcher_lib as mll
 import json
 
 from minecraft_launcher.minecraft import latest_versions, save_config
@@ -18,8 +17,11 @@ if os.path.exists(ruta_json):
 else:
     config_data = {
         "username": "",
+        "uuid": "",
+        "token": "",
         "ram": "",
-        "version": ""
+        "version": "",
+        "java": ""
     }
 
 # Obtiene la lista de versiones instaladas
