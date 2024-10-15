@@ -1,6 +1,5 @@
 import os
 import flet as ft
-import minecraft_launcher_lib as mll
 import json
 
 from minecraft_launcher.minecraft import latest_versions, save_config
@@ -18,8 +17,11 @@ if os.path.exists(ruta_json):
 else:
     config_data = {
         "username": "",
+        "uuid": "",
+        "token": "",
         "ram": "",
-        "version": ""
+        "version": "",
+        "java": ""
     }
 
 # Obtiene la lista de versiones instaladas
@@ -76,10 +78,10 @@ guardar_btn = ft.ElevatedButton(
     "Guardar",
     style=ft.ButtonStyle(
         color="#ffffff",
-        bgcolor="#68C90E",
-        overlay_color="#447A12",
-        shape=ft.RoundedRectangleBorder(radius=0),
-        shadow_color="#178c4a",
+        bgcolor="#5B0098",
+        overlay_color="#0C0C0C",
+        shape=ft.RoundedRectangleBorder(radius=3),
+        shadow_color="#000000",
         elevation=5,
     ),
     on_click=lambda _: save_config(mine_user=username.value, ram=ram.value, version=version.value),

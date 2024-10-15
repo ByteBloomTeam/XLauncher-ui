@@ -9,7 +9,7 @@ minecraft_directory = f"C://Users//{user_windows}//AppData//Roaming//.xlauncher"
 
 def check_internet():
     try:
-        urllib.request.urlopen('https://google.com', timeout=5)
+        urllib.request.urlopen('https://google.com', timeout=10)
         return True
     except urllib.request.URLError as err: 
         return False
@@ -37,6 +37,18 @@ dd = ft.Dropdown(
     border=ft.InputBorder.NONE,
     options=opciones,
 )
+de = ft.Dropdown(
+    width=200,
+    height=50,
+    bgcolor="#343434",
+    focused_bgcolor="#343434",
+    border=ft.InputBorder.NONE,
+    options=[
+            ft.dropdown.Option("Vanilla"),
+            ft.dropdown.Option("Forge"),
+            ft.dropdown.Option("Fabric"),
+        ],
+)
 
 downloadtext = ft.ListView(spacing=5, padding=10, auto_scroll=True)
 downloadprogress = ft.ListView(width=50, auto_scroll=True)
@@ -59,8 +71,20 @@ def install(e):
     if dd.value == "No Internet Connection":
         infotext("No hay conexión a Internet. No se puede instalar.")
     else:
-        infotext(install_mine(dd.value))
+        if de.value == 'Vanilla':
+            infotext(install_mine(dd.value))
+        elif de.value == 'Forge':
+            forge_version = dd.value
+            forge_ob_version = mll.forge.find_forge_version(forge_version)
+            infotext(install_forge(forge_ob_version))
 
+        elif de.value == "Fabric":
+            fabric_version = dd.value
+            fabric_supor_ver = mll.fabric.is_minecraft_version_supported(fabric_version)
+            if fabric_supor_ver == False:
+                infotext('No es compatible esa versión')
+            else:
+                infotext(install_fabric(dd.value))
 def printProgressBar(
     iteration,
     total,
@@ -95,13 +119,40 @@ def install_mine(version):
     info = mll.utils.generate_test_options()
     save_config(uuid=info["uuid"], version=version)
 
+# Install Forge
+def install_forge(forge_ob_version):
+    max_value = [0]
+    callback = {
+        "setStatus": lambda text: infotext(text),
+        "setProgress": lambda value: printProgressBar(value, max_value[0]),
+        "setMax": lambda value: maximum(max_value, value),
+    }
+
+    # Aquí instalamos la versión de Forge usando la función de la librería
+    mll.forge.install_forge_version(forge_ob_version, minecraft_directory, callback=callback)
+    return f"Forge {forge_ob_version} instalado exitosamente."
+
+def install_fabric(version):
+    max_value = [0]
+    callback = {
+        "setStatus": lambda text: infotext(text),
+        "setProgress": lambda value: printProgressBar(value, max_value[0]),
+        "setMax": lambda value: maximum(max_value, value),
+    }
+
+    # Instalamos la versión de Minecraft con Fabric
+    mll.fabric.install_fabric(version, minecraft_directory, callback=callback)
+    return f"Fabric {version} instalado exitosamente."
+
 button_install = ft.ElevatedButton(
     "INSTALAR",
     style=ft.ButtonStyle(
         color="#ffffff",
-        bgcolor='#68C90E',
-        overlay_color="#447A12",
-        shape=ft.RoundedRectangleBorder(radius=0),
+        bgcolor="#5B0098",
+        overlay_color="#0C0C0C",
+        shape=ft.RoundedRectangleBorder(radius=3),
+        shadow_color="#000000",
+        elevation=5,
     ),
     on_click=lambda _: install(dd.value),
 )
@@ -113,6 +164,7 @@ install_page = ft.Stack(
                 controls=[
                     title,
                     dd,
+                    de,
                     downloadtext,
                     pb,
                     downloadprogress,

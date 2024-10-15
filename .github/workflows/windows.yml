@@ -1,4 +1,4 @@
-name: xlauncher 1.0.3
+name: xlauncher 1.0.4-1
 
 on:
   workflow_dispatch:
@@ -17,7 +17,7 @@ jobs:
         pip install -r requirements.txt
     - name: Build with pyinstaller
       run: |
-        flet pack  main.py --name XLauncher --onedir --icon icon_windows.ico --product-name XLauncher --add-data "assets;assets" --product-version "1.0.1" --copyright "Copyright (c) 2024 ByteBloom"
+        flet pack  main.py --name XLauncher --onedir --icon icon_windows.ico --product-name XLauncher --add-data "assets;assets" --product-version "1.0.4" --copyright "Copyright (c) 2024 KeimaSenpai"
     - name: Compress folder
       shell: powershell
       run: |
@@ -28,23 +28,24 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
       with:
-        tag_name: v1.0.3
-        release_name: XLauncher v1.0.3
+        tag_name: v1.0.4-1
+        release_name: XLauncher v1.0.4-1
         body: |
           ## 🚀 Funciones
           - Todavía en BETA
-          - Se actualizo Flet a 0.24.1
+          - Opciones para la instalación de Forge y Fabric
           - Agregado la opción de poner la ruta de su java.
           - Agregado el botón de info para saber mas sobre el launcher.
           ------
           ## 📑Próximamente
           - Login con cuenta Premium.
-          - Opciones para la instalación de Forge y Fabric
           - Versiones para Linux y MACOS.
+          - Soporte para varios idiomas.
           - Mejoras en la interfaz de usuario.
           - Funcioanlidad de la sección de noticias.
           ------
           ## 🐛Se corrigieron los siguientes bugs.
+          - Se arreglo el bug de que no abre el launcher porque no crea el archivo configuration.json
           - El bug de la consola cuando se instala una versión.
           - Ya al abrir minecraft no sale la consolas.
           

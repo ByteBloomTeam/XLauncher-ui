@@ -5,7 +5,7 @@ from minecraft_launcher.minecraft import play_mine
 
 
 minecraft_title = ft.Image(
-    src="img/minecraft_title.png",
+    src="img/minecraft_title.webp",
     height=170,
 )
 
@@ -22,23 +22,17 @@ play = ft.ElevatedButton(
     on_click=play_mine,
 )
 
-image_promo = ft.Image(
-    src='http://127.0.0.1:8090/api/files/lmvwpuuvgk9dan6/79cfxvrsf8j8j6f/promo_RmJczM1Y2F.webp?token=',
-    height=50,
-
-)
-
 home_page = ft.Stack(
     [
         ft.Image(
-            src="img/Rectángulo.webp",
+            src="img/bg.webp",
             height=478,
             width=681,
             fit=ft.ImageFit.COVER,
         ),
         ft.Container(
             content=ft.Column(
-                controls=[minecraft_title, play, image_promo],
+                controls=[minecraft_title, play],
                 alignment=ft.MainAxisAlignment.CENTER,
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             ),
