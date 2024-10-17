@@ -1,4 +1,3 @@
 flet==0.24.1
 minecraft-launcher-lib
 pillow
-# pyinstaller
