@@ -3,15 +3,15 @@ import os
 import subprocess
 import threading
 import minecraft_launcher_lib as mll
+import platform
 
-user_windows = os.environ["USERNAME"]
-minecraft_directory = f"C://Users//{user_windows}//AppData//Roaming//.xlauncher"
-ruta_json = f"{minecraft_directory}//configuration.json"
-ruta_java = f"{minecraft_directory}//runtime//jre-legacy//windows-x64//jre-legacy//bin//java.exe"
+import requests
+
+from minecraft_launcher.confi_env import MINECRAFT_DIRECTORY, RUTA_JAVA, RUTA_JSON, GRUPO_ID, MESSAGE_THREAD_ID, TOKEN
 
 def latest_versions():
     versiones = []
-    version = mll.utils.get_installed_versions(minecraft_directory)
+    version = mll.utils.get_installed_versions(MINECRAFT_DIRECTORY)
     for ver in version:
         if ver["type"] == "release":
             versiones.append(ver["id"])
@@ -28,7 +28,7 @@ def list_versions():
 
 def save_config(mine_user=None, uuid=None, version=None, ram=None, java=None):
     # Verificar si el archivo existe
-    if not os.path.exists(ruta_json):
+    if not os.path.exists(RUTA_JSON):
         # Si no existe, crear el diccionario con los valores proporcionados
         data = {
             "username": mine_user if mine_user is not None else "",
@@ -40,7 +40,7 @@ def save_config(mine_user=None, uuid=None, version=None, ram=None, java=None):
         }
     else:
         # Si el archivo existe, cargar los datos existentes
-        with open(ruta_json, "r") as f:
+        with open(RUTA_JSON, "r") as f:
             data = json.load(f)
 
     # Actualizar los valores solo si se pasan en la función
@@ -56,7 +56,7 @@ def save_config(mine_user=None, uuid=None, version=None, ram=None, java=None):
         data["java"] = java
 
     # Guardar los datos actualizados en el archivo
-    with open(ruta_json, "w") as f:
+    with open(RUTA_JSON, "w") as f:
         json.dump(data, f, indent=4)
 
 # def launch_minecraft(e):
@@ -66,8 +66,8 @@ def save_config(mine_user=None, uuid=None, version=None, ram=None, java=None):
 
 async def play_mine(e):
     global options
-    if os.path.exists(ruta_json):
-        with open(ruta_json, "r") as file:
+    if os.path.exists(RUTA_JSON):
+        with open(RUTA_JSON, "r") as file:
             data = json.load(file)
 
         if "username" in data and "ram" in data:
@@ -87,7 +87,7 @@ async def play_mine(e):
             "uuid": '',
             "token": "",
             "executablePath": java, 
-            "defaultExecutablePath": ruta_java,
+            "defaultExecutablePath": RUTA_JAVA,
             "jvmArguments": [
                 f"-Xmx{ram}G",
                 f"-Xms{ram}G",
@@ -97,7 +97,7 @@ async def play_mine(e):
 
         # Ejecutar Minecraft
         minecraft_command = mll.command.get_minecraft_command(
-            version, minecraft_directory, options
+            version, MINECRAFT_DIRECTORY, options
         )
         subprocess.run(minecraft_command, 
                        creationflags=subprocess.CREATE_NO_WINDOW
@@ -106,3 +106,34 @@ async def play_mine(e):
     else:
         print('error')
         pass
+
+
+def enviar_report(tipo, reporte):
+    # Obtener el nombre del sistema operativo y versión
+    nombre_sistema = platform.system()
+    version_sistema = platform.version()
+
+    text = f"""
+<b>Reporte de XLauncher</b>
+<b>Tipo:</b> <i>#{tipo}</i>
+<b>SO:</b> <i>{nombre_sistema} v{version_sistema}</i>
+
+<blockquote expandable>{reporte}</blockquote>
+"""
+    url = f'https://api.telegram.org/bot{TOKEN}/sendMessage'
+
+    payload = {
+        "chat_id": GRUPO_ID,
+        "text": text,
+        "parse_mode": "HTML"
+    }
+
+    # Verificar si la variable MESSAGE_THREAD_ID está definida y no es None
+    if 'MESSAGE_THREAD_ID' in globals() and MESSAGE_THREAD_ID is not None:
+        payload["message_thread_id"] = MESSAGE_THREAD_ID
+
+    response = requests.post(url, json=payload)
+    if response.status_code == 200:
+        print("Mensaje enviado.")
+    else:
+        print("Error", response.status_code)

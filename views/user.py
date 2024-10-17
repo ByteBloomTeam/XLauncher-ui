@@ -1,18 +1,13 @@
 import os
 import flet as ft
 import json
-
+from minecraft_launcher.confi_env import RUTA_JSON
 from minecraft_launcher.minecraft import latest_versions, save_config
 
-user_windows = os.environ["USERNAME"]
-minecraft_directory = f"C://Users//{user_windows}//AppData//Roaming//.xlauncher"
-
-# Ruta del archivo de configuración
-ruta_json = f"{minecraft_directory}//configuration.json"
 
 # Verificar si el archivo de configuración existe y cargar datos si existe
-if os.path.exists(ruta_json):
-    with open(ruta_json, 'r') as file:
+if os.path.exists(RUTA_JSON):
+    with open(RUTA_JSON, 'r') as file:
         config_data = json.load(file)
 else:
     config_data = {

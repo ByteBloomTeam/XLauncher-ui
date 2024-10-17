@@ -2,10 +2,8 @@ import flet as ft
 import json
 import os
 
-# Cargar configuración existente
-user_windows = os.environ["USERNAME"]
-minecraft_directory = f"C://Users//{user_windows}//AppData//Roaming//.xlauncher"
-config_path = f"{minecraft_directory}//configuration.json"
+from minecraft_launcher.confi_env import LAUNCHER_VERSION, MINECRAFT_DIRECTORY, RUTA_JSON
+from minecraft_launcher.minecraft import enviar_report
 
 
 # Valores predeterminados para el archivo de configuración
@@ -19,16 +17,16 @@ default_config = {
 }
 
 # Verificar si la carpeta existe, de lo contrario crearla
-if not os.path.exists(minecraft_directory):
-    os.makedirs(minecraft_directory)
+if not os.path.exists(MINECRAFT_DIRECTORY):
+    os.makedirs(MINECRAFT_DIRECTORY)
 
 # Verificar si el archivo existe, de lo contrario crearlo con los valores predeterminados
-if not os.path.exists(config_path):
-    with open(config_path, "w") as file:
+if not os.path.exists(RUTA_JSON):
+    with open(RUTA_JSON, "w") as file:
         json.dump(default_config, file, indent=4)  # Escribir los valores iniciales con formato
 
 # Cargar el archivo de configuración existente
-with open(config_path, "r") as file:
+with open(RUTA_JSON, "r") as file:
     config = json.load(file)
 
 
@@ -39,15 +37,15 @@ def file_picker_result(e: ft.FilePickerResultEvent):
         selected_path = e.files[0].path
 
         # Cargar la configuración actual del archivo JSON
-        if os.path.exists(config_path):
-            with open(config_path, "r") as file:
+        if os.path.exists(RUTA_JSON):
+            with open(RUTA_JSON, "r") as file:
                 config = json.load(file)  # Cargar el contenido actual del archivo
 
         # Actualizar solo el valor de "java"
         config["java"] = selected_path
 
         # Guardar la configuración actualizada
-        with open(config_path, "w") as file:
+        with open(RUTA_JSON, "w") as file:
             json.dump(config, file, indent=4)  # Guardar sin afectar otros valores
 
         # Actualizar la interfaz de usuario
@@ -71,7 +69,7 @@ select_java_button = ft.ElevatedButton(
         shadow_color="#000000",
         elevation=5,
     ),
-    on_click=lambda _: file_picker.pick_files(dialog_title='Selecciona el Java', allowed_extensions=['exe'], initial_directory=minecraft_directory)
+    on_click=lambda _: file_picker.pick_files(dialog_title='Selecciona el Java', allowed_extensions=['exe'], initial_directory=MINECRAFT_DIRECTORY)
 )
 
 
@@ -96,7 +94,7 @@ de personalización.
 
     dlg = ft.AlertDialog(
         title=ft.Text(
-            "XLauncher v1.0.4-1", 
+            f"XLauncher v{LAUNCHER_VERSION}", 
             font_family='mine',
             size=15,
             ),
@@ -170,8 +168,84 @@ de personalización.
 
         ),
         shape= ft.RoundedRectangleBorder(radius=5),
-    )   
+    )
 
+    #Sección de reportes, bug, etc
+    report_button = ft.IconButton(
+        icon=ft.icons.WARNING,
+        style=ft.ButtonStyle(
+            color="#e61a23",
+            bgcolor="#0C0C0C",
+            shape=ft.RoundedRectangleBorder(radius=5),
+        ),
+        on_click=lambda e: page.open(dlf)
+    )
+
+    suport_category = ft.Dropdown(
+        width=200,
+        height=50,
+        bgcolor="#343434",
+        focused_bgcolor="#343434",
+        border=ft.InputBorder.NONE,
+        options=[
+            ft.dropdown.Option("Bug"),
+            ft.dropdown.Option("Report"),
+            ft.dropdown.Option("Sugerir"),
+        ],
+        text_style= ft.TextStyle(
+            font_family='nunito',
+            weight= ft.FontWeight.BOLD,
+        )
+    )
+
+    btn_send_report = ft.ElevatedButton(
+        "Enviar",
+        style=ft.ButtonStyle(
+            color="#ffffff",
+            bgcolor="#5B0098",
+            overlay_color="#0C0C0C",
+            shape=ft.RoundedRectangleBorder(radius=3),
+            shadow_color="#000000",
+            elevation=5,
+        ),
+        on_click=lambda _: enviar_report(suport_category.value, suport_texto.value),
+    )
+
+    suport_texto = ft.TextField(
+        width=250,
+        height=50,
+        bgcolor='#343434',
+        multiline=True,
+        border=ft.InputBorder.NONE,
+        border_radius=30,
+        cursor_height=20,
+        text_style=ft.TextStyle(
+            font_family='nunito',
+            size=15,
+            ),
+    )
+
+    dlf = ft.AlertDialog(
+        title=ft.Text(
+            "CONTACTO", 
+            # font_family='mine',
+            size=15,
+            ),
+        content=ft.Column(
+            spacing = 5,
+            controls=[
+                suport_category,
+                suport_texto,
+                btn_send_report,
+            ],
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+            alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+        ),
+        shape= ft.RoundedRectangleBorder(radius=5),
+    )
+
+
+    #Sección para que salga todo en la pagina de settings
     setting_page = ft.Stack(
         [
             ft.Container(
@@ -182,6 +256,7 @@ de personalización.
                         select_java_button,
                         file_picker,
                         info_button,
+                        report_button
                     ],
                     alignment=ft.MainAxisAlignment.CENTER,
                     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
@@ -194,3 +269,4 @@ de personalización.
     )
 
     return setting_page
+

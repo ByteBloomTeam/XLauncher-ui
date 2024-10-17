@@ -1,11 +1,9 @@
-import os
 import flet as ft
 import minecraft_launcher_lib as mll
-from minecraft_launcher.minecraft import list_versions, save_config
 import urllib.request
+from minecraft_launcher.confi_env import MINECRAFT_DIRECTORY
+from minecraft_launcher.minecraft import list_versions, save_config
 
-user_windows = os.environ["USERNAME"]
-minecraft_directory = f"C://Users//{user_windows}//AppData//Roaming//.xlauncher"
 
 def check_internet():
     try:
@@ -56,14 +54,14 @@ downloadprogress = ft.ListView(width=50, auto_scroll=True)
 def infotext(text):
     downloadtext.controls.clear()
     downloadtext.controls.append(
-        ft.Row([ft.Text(text, size=14, color='#ffffff')], alignment="center")
+        ft.Row([ft.Text(text, size=14, color='#ffffff', font_family='mine')], alignment="center")
     )
     downloadtext.update()
 
 def infoprog(text):
     downloadprogress.controls.clear()
     downloadprogress.controls.append(
-        ft.Row([ft.Text(text, size=14, color='#ffffff')], alignment="center")
+        ft.Row([ft.Text(text, size=14, color='#ffffff', font_family='mine')], alignment="center")
     )
     downloadprogress.update()
 
@@ -80,8 +78,8 @@ def install(e):
 
         elif de.value == "Fabric":
             fabric_version = dd.value
-            fabric_supor_ver = mll.fabric.is_minecraft_version_supported(fabric_version)
-            if fabric_supor_ver == False:
+            fabric_suport_ver = mll.fabric.is_minecraft_version_supported(fabric_version)
+            if fabric_suport_ver == False:
                 infotext('No es compatible esa versión')
             else:
                 infotext(install_fabric(dd.value))
@@ -114,10 +112,11 @@ def install_mine(version):
     }
 
     mll.install.install_minecraft_version(
-        version, minecraft_directory, callback=callback
+        version, MINECRAFT_DIRECTORY, callback=callback
     )
     info = mll.utils.generate_test_options()
     save_config(uuid=info["uuid"], version=version)
+    return f"{version} instalada exitosamente."
 
 # Install Forge
 def install_forge(forge_ob_version):
@@ -129,7 +128,7 @@ def install_forge(forge_ob_version):
     }
 
     # Aquí instalamos la versión de Forge usando la función de la librería
-    mll.forge.install_forge_version(forge_ob_version, minecraft_directory, callback=callback)
+    mll.forge.install_forge_version(forge_ob_version, MINECRAFT_DIRECTORY, callback=callback)
     return f"Forge {forge_ob_version} instalado exitosamente."
 
 def install_fabric(version):
@@ -141,7 +140,7 @@ def install_fabric(version):
     }
 
     # Instalamos la versión de Minecraft con Fabric
-    mll.fabric.install_fabric(version, minecraft_directory, callback=callback)
+    mll.fabric.install_fabric(version, MINECRAFT_DIRECTORY, callback=callback)
     return f"Fabric {version} instalado exitosamente."
 
 button_install = ft.ElevatedButton(
