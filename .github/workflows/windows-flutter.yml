@@ -46,6 +46,11 @@ jobs:
         if-no-files-found: error
         overwrite: false
     
+    - name: Compress folder
+      shell: powershell
+      run: |
+        Compress-Archive -Path build/windows -DestinationPath XLauncher-Windows.zip
+    
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -88,6 +93,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: build/windows
-        asset_name: windows-build
+        asset_path: build/XLauncher-Windows.zip
+        asset_name: XLauncher-Windows.zip
         asset_content_type: application/zip
