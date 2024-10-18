@@ -42,17 +42,23 @@ jobs:
     - name: List build directory
       run: |
         dir build
+        dir build/windows
 
-    - name: Zip Windows Artifact
+    - name: Compress folder
+      shell: powershell
       run: |
-        cd build/windows
-        tar -czf ../../windows-build.zip .
+        Compress-Archive -Path build/windows -DestinationPath XLauncher-Windows.zip
+
+    - name: List build directory
+      run: |
+        dir build
+        dir build/windows
 
     - name: Upload Windows Artifact
       uses: actions/upload-artifact@v4.3.4
       with:
-        name: windows-build-artifact
-        path: windows-build.zip
+        name: XLauncher-Windows
+        path: XLauncher-Windows.zip
         if-no-files-found: error
         overwrite: false
 
@@ -80,6 +86,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: windows-build.zip  # Path to the zipped file
+        asset_path: build/XLauncher-Windows.zip  # Path to the zipped file
         asset_name: windows-build.zip
         asset_content_type: application/zip
