@@ -40,20 +40,33 @@ username = ft.TextField(
     value=config_data.get("username", "")
 )
 
-ram = ft.TextField(
-    hint_text="RAM",
-    width=250,
-    height=50,
-    bgcolor='#343434',
-    border=ft.InputBorder.NONE,
-    border_radius=30,
-    cursor_height=20,
-    text_style=ft.TextStyle(
-        font_family='mine',
-        size=15,
-    ),
-    value=config_data.get("ram", "")
-)
+# ram = ft.TextField(
+#     hint_text="RAM",
+#     width=250,
+#     height=50,
+#     bgcolor='#343434',
+#     border=ft.InputBorder.NONE,
+#     border_radius=30,
+#     cursor_height=20,
+#     text_style=ft.TextStyle(
+#         font_family='mine',
+#         size=15,
+#     ),
+#     value=config_data.get("ram", "")
+# )
+
+ram = ft.Slider(
+        min=0, 
+        max=12,
+        active_color='#5B0098',
+        # inactive_color='#ffffff',
+        # thumb_color='#ffffff',
+        # overlay_color='#fffff5',
+        # secondary_active_color='#ffffff',
+
+        divisions=6, 
+        label="{value}", 
+        value=config_data.get("ram",""))
 
 version = ft.Dropdown(
     width=250,
@@ -79,7 +92,7 @@ guardar_btn = ft.ElevatedButton(
         shadow_color="#000000",
         elevation=5,
     ),
-    on_click=lambda _: save_config(mine_user=username.value, ram=ram.value, version=version.value),
+    on_click=lambda _: save_config(mine_user=username.value, ram=int(ram.value), version=version.value),
 )
 
 user_page = ft.Stack(
