@@ -7,7 +7,7 @@ on:
 env:
   # https://flet.dev/docs/publish#versioning
   BUILD_NUMBER: 5
-  BUILD_VERSION: 1.0
+  BUILD_VERSION: 1
   BUILD_BETA: 1
   PYTHON_VERSION: 3.12.2
   FLUTTER_VERSION: 3.24.0
@@ -51,8 +51,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
       with:
-        tag_name: v${{ env.BUILD_VERSION }}.${{ env.BUILD_NUMBER }}
-        release_name: "XLauncher v${{ env.BUILD_VERSION }}.${{ env.BUILD_NUMBER }}"
+        tag_name: v${{ env.BUILD_VERSION }}.0.${{ env.BUILD_NUMBER }}
+        release_name: "XLauncher v${{ env.BUILD_VERSION }}.0.${{ env.BUILD_NUMBER }}"
         body: |
           ## 🚀 Funciones
           - [x] Ya se usa nuevo compilador
