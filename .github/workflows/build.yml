@@ -54,13 +54,6 @@ jobs:
         dir build
         dir build/windows
 
-  release:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
     - name: Create GitHub Release
       id: create_release
       uses: actions/create-release@v1
