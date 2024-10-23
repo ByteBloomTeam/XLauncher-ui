@@ -1,18 +1,13 @@
 import os
 import flet as ft
 import json
-
+from minecraft_launcher.confi_env import RUTA_JSON
 from minecraft_launcher.minecraft import latest_versions, save_config
 
-user_windows = os.environ["USERNAME"]
-minecraft_directory = f"C://Users//{user_windows}//AppData//Roaming//.xlauncher"
-
-# Ruta del archivo de configuración
-ruta_json = f"{minecraft_directory}//configuration.json"
 
 # Verificar si el archivo de configuración existe y cargar datos si existe
-if os.path.exists(ruta_json):
-    with open(ruta_json, 'r') as file:
+if os.path.exists(RUTA_JSON):
+    with open(RUTA_JSON, 'r') as file:
         config_data = json.load(file)
 else:
     config_data = {
@@ -45,20 +40,33 @@ username = ft.TextField(
     value=config_data.get("username", "")
 )
 
-ram = ft.TextField(
-    hint_text="RAM",
-    width=250,
-    height=50,
-    bgcolor='#343434',
-    border=ft.InputBorder.NONE,
-    border_radius=30,
-    cursor_height=20,
-    text_style=ft.TextStyle(
-        font_family='mine',
-        size=15,
-    ),
-    value=config_data.get("ram", "")
-)
+# ram = ft.TextField(
+#     hint_text="RAM",
+#     width=250,
+#     height=50,
+#     bgcolor='#343434',
+#     border=ft.InputBorder.NONE,
+#     border_radius=30,
+#     cursor_height=20,
+#     text_style=ft.TextStyle(
+#         font_family='mine',
+#         size=15,
+#     ),
+#     value=config_data.get("ram", "")
+# )
+
+ram = ft.Slider(
+        min=0, 
+        max=12,
+        active_color='#5B0098',
+        # inactive_color='#ffffff',
+        # thumb_color='#ffffff',
+        # overlay_color='#fffff5',
+        # secondary_active_color='#ffffff',
+
+        divisions=6, 
+        label="{value}", 
+        value=config_data.get("ram",""))
 
 version = ft.Dropdown(
     width=250,
@@ -84,7 +92,7 @@ guardar_btn = ft.ElevatedButton(
         shadow_color="#000000",
         elevation=5,
     ),
-    on_click=lambda _: save_config(mine_user=username.value, ram=ram.value, version=version.value),
+    on_click=lambda _: save_config(mine_user=username.value, ram=int(ram.value), version=version.value),
 )
 
 user_page = ft.Stack(

@@ -8,7 +8,6 @@ from views.install import install_page
 from views.setting import create_setting_page
 
 logging.basicConfig(level=logging.DEBUG)
-# logging.getLogger("flet_core").setLevel(logging.INFO)
 
 def main(page: ft.Page):
     page.title = "XLauncher"
@@ -21,6 +20,7 @@ def main(page: ft.Page):
     page.fonts = {
         "mine": "fonts/minecraft.ttf",
         "mine_dun": "fonts/minecraft-dungeons.ttf",
+        "nunito": "fonts/nunito-variablefont.ttf"
     }
     page.theme = ft.Theme(font_family="mine_dun")
 
