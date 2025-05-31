@@ -6,11 +6,13 @@ on:
 
 env:
   # https://flet.dev/docs/publish#versioning
-  BUILD_NUMBER: 5
-  BUILD_VERSION: 1.0.5
-  BUILD_BETA: 1
+  BUILD_NUMBER: 8
+  BUILD_VERSION: 1.0.8
   PYTHON_VERSION: 3.12.2
-  FLUTTER_VERSION: 3.24.0
+  FLET_CLI_VERSION: 0.28.3
+  PYTHONUTF8: 1
+  FLET_CLI_NO_RICH_OUTPUT: 1
+  UV_NO_PROGRESS: 1
 
 jobs:
   build:
@@ -25,20 +27,14 @@ jobs:
       with:
         python-version: ${{ env.PYTHON_VERSION }}
 
-    - name: Install Python Dependencies
+    - name: Install flet-cli ${{ env.FLET_CLI_VERSION }}
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
-
-    - name: Setup Flutter ${{ env.FLUTTER_VERSION }}
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: ${{ env.FLUTTER_VERSION }}
+        pip install flet-cli==$env:FLET_CLI_VERSION
 
     - name: Flet Build Windows
       run: |
-        flutter config --no-analytics
-        flet build windows --verbose --no-rich-output --project XLauncher --product XLauncher --copyright "Copyright (c) 2024 KeimaSenpai" --build-number=$env:BUILD_NUMBER --build-version=$env:BUILD_VERSION
+        flet build windows --verbose --no-rich-output --build-number=$env:BUILD_NUMBER --build-version=$env:BUILD_VERSION
 
     - name: Compress folder
       shell: powershell
@@ -55,27 +51,20 @@ jobs:
         release_name: "XLauncher v${{ env.BUILD_VERSION }}"
         body: |
           ## 🚀 Funciones
-          - [x] Ya se usa nuevo compilador
-          - [x] Opciones para la instalación de Forge y Fabric
-          - [x] Agregado la opción de poner la ruta de su java.
-          - [x] Agregado el botón de info para saber mas sobre el launcher.
-          - [x] Agregada la funcion para reportar errores.
+          - [x] Notificación al ejecutar una version
           ------
           ## 📑Próximamente
           - [ ] Login con cuenta Premium.
-          - [ ] Versiones para Linux y MACOS.
           - [ ] Soporte para varios idiomas.
-          - [ ] Mejoras en la interfaz de usuario.
           - [ ] Funcionalidad de la sección de noticias.
           ------
           ## 🐛Se corrigieron los siguientes bugs.
-          - [x] Se arreglo el bug de que no abre el launcher porque no crea el archivo configuration.json
-          - [x] El bug de la consola cuando se instala una versión.
-          - [x] Ya al abrir minecraft no sale la consolas.
+          - [x] Mejor optimización del launcher.
+          - [x] Actualizada de la librería flet
+          - [x] Corrección de código deprecated
 
           > [!IMPORTANT]
-          > Estos es a partir de versiones anteriores a la v1.0.5
-          > Tienen que sacar de la carpeta _internal la carpeta assets hacia la ruta principal del launcher para que salgan todos los recursos.
+          > Intenta mandar cualquier error o sugerencia para mejorarlo
           
           ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/KeimaSenpai/XLauncher-ui/total?style=for-the-badge&label=Download&color=%23756AB6)
         draft: false
